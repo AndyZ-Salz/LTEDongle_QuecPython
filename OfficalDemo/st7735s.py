@@ -1,0 +1,133 @@
+from machine import LCD
+
+lcd = LCD()
+
+st7735s_init_data = (
+    0,0,0x11,
+    2,0,120,
+
+    0,3,0xb1,
+    1,1,0x01,
+    1,1,0x08,
+    1,1,0x05,
+
+    0,3,0xb2,
+    1,1,0x05,
+    1,1,0x3c,
+    1,1,0x3c,
+
+    0,6,0xb3,
+    1,1,0x05,
+    1,1,0x3c,
+    1,1,0x3c,
+    1,1,0x05,
+    1,1,0x3c,
+    1,1,0x3c,
+
+    0,1,0xb4,
+    1,1,0x03,
+
+    0,3,0xc0,
+    1,1,0x28,
+    1,1,0x08,
+    1,1,0x04,
+
+    0,1,0xc1,
+    1,1,0xc0,
+
+    0,2,0xc2,
+    1,1,0x0d,
+    1,1,0x00,
+
+    0,2,0xc3,
+    1,1,0x8d,
+    1,1,0x2a,
+
+    0,2,0xc4,
+    1,1,0x8d,
+    1,1,0xee,
+
+    0,1,0xc5,
+    1,1,0x12,
+
+    0,1,0x36,
+    1,1,0xA0,
+
+    0,16,0xe0,
+    1,1,0x04,
+    1,1,0x22,
+    1,1,0x07,
+    1,1,0x0a,
+    1,1,0x2e,
+    1,1,0x30,
+    1,1,0x25,
+    1,1,0x2a,
+    1,1,0x28,
+    1,1,0x26,
+    1,1,0x2e,
+    1,1,0x3a,
+    1,1,0x00,
+    1,1,0x01,
+    1,1,0x03,
+    1,1,0x13,
+
+    0,16,0xe1,
+    1,1,0x04,
+    1,1,0x16,
+    1,1,0x06,
+    1,1,0x0d,
+    1,1,0x2d,
+    1,1,0x26,
+    1,1,0x23,
+    1,1,0x27,
+    1,1,0x27,
+    1,1,0x25,
+    1,1,0x2d,
+    1,1,0x3b,
+    1,1,0x00,
+    1,1,0x01,
+    1,1,0x04,
+    1,1,0x13,
+
+    0,1,0x3a,
+    1,1,0x05,
+
+    0,1,0x35,
+    1,1,0x00,
+
+    0,0,0x29,
+    1,0,0x2c,
+    )
+
+XSTART_H = 0xf0
+XSTART_L = 0xf1
+YSTART_H = 0xf2
+YSTART_L = 0xf3
+XEND_H = 0xE0
+XEND_L = 0xE1
+YEND_H = 0xE2
+YEND_L = 0xE3
+XSTART = 0xD0
+XEND = 0xD1
+YSTART = 0xD2
+YEND = 0xD3
+
+st7735s_invalid = (
+    0,4,0x2A,
+    1,1,XSTART_H,
+    1,1,XSTART_L,
+    1,1,XEND_H,
+    1,1,XEND_L,
+    0,4,0x2B,
+    1,1,YSTART_H,
+    1,1,YSTART_L,
+    1,1,YEND_H,
+    1,1,YEND_L,
+    0,0,0x2C,
+)
+
+lcd_init_data = bytearray(st7735s_init_data)
+lcd_invalid = bytearray(st7735s_invalid)
+lcd.lcd_init(lcd_init_data, 160, 128 , 13000, 1, 4, 0, lcd_invalid, None, None, None)
+
+lcd.lcd_clear(0xFF00)
